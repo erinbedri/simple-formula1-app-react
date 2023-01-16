@@ -10,7 +10,7 @@ export default function Drivers() {
   const baseURL = "http://ergast.com/api/f1/2022/drivers.json";
 
   const [drivers, setDrivers] = useState([]);
-  const [season, setSeason] = useState([]);
+  const [season, setSeason] = useState("2022");
 
   useEffect(() => {
     fetch(baseURL)
@@ -23,7 +23,7 @@ export default function Drivers() {
 
   return (
     <>
-      <Container className="mt-3">
+      <Container className="mt-3 mb-3">
         <h2>Drivers</h2>
         <h5>Season {season}</h5>
         <Row>
