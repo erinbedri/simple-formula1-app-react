@@ -1,16 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
+import Driver from "./Driver";
+
 export default function Drivers() {
+  const baseURL = "http://ergast.com/api/f1/2022/drivers.json";
+
+  const [drivers, setDrivers] = useState([]);
+  const [season, setSeason] = useState([]);
+
+  useEffect(() => {
+    fetch(baseURL)
+      .then((res) => res.json())
+      .then((result) => {
+        setDrivers(result.MRData.DriverTable.Drivers);
+        setSeason(result.MRData.DriverTable.season);
+      });
+  }, []);
+
   return (
     <>
       <Container className="mt-3">
-        <h2>Drivers Page</h2>
+        <h2>Drivers</h2>
+        <h5>Season {season}</h5>
         <Row>
-          <Col>Drivers</Col>
+          {drivers.map((driver) => (
+            <Driver key={driver.driverId} data={driver} />
+          ))}
         </Row>
       </Container>
     </>
